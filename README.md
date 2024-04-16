@@ -8,4 +8,5 @@ Steps:
 4) creating account in "Pythonanywhere" -> in "Bash console" git clone + HTTPS key -> setting "Open Web Tab"...
 5) creating evenDAO.py, db.config.py, event.html
 6) creating connection with mysql: pip install mysql-connector -> pip freeze > requirements.txt (creating file)
-7) git add . -> git commit -m "real seerver" -> git push
+7) git add . -> git commit -m "real server" -> git push
+8) in pythonanywhere  create database with tables and data + in bash console - git pull

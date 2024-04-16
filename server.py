@@ -4,6 +4,9 @@ from eventDAO import eventDAO
 
 app = Flask(__name__, static_url_path='', static_folder='.')
 
+@app.route('/')
+def index():
+    return "Hello, World!"
 
 #curl "http://127.0.0.1:5000/event"
 @app.route('/event')

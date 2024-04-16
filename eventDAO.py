@@ -2,7 +2,7 @@
 #creating my_server connects to a database
 import mysql.connector
 import dbconfig as cfg
-class my_server:
+class eventDAO:
     connection=""
     cursor =''
     host= ''
@@ -99,4 +99,4 @@ class my_server:
         return event
 
         
-my_server = my_server()
+eventDAO = eventDAO()

@@ -46,7 +46,7 @@ class my_server:
 
     def findByID(self, id):
         cursor = self.getcursor()
-        sql="select * from book where id = %s"
+        sql="select * from event where id = %s"
         values = (id,)
 
         cursor.execute(sql, values)
@@ -57,8 +57,8 @@ class my_server:
 
     def create(self, event):
         cursor = self.getcursor()
-        sql="insert into event (title,place, fee) values (%s,%s,%s)"
-        values = (event.get("title"), event.get("place"), event.get("fee"))
+        sql="insert into event (title,place,date, fee) values (%s,%s,%s,%s)"
+        values = (event.get("title"), event.get("place"), event.get("date"), event.get("fee"))
         cursor.execute(sql, values)
 
         self.connection.commit()
@@ -70,9 +70,9 @@ class my_server:
 
     def update(self, id, event):
         cursor = self.getcursor()
-        sql="update event set title= %s,place=%s, fee=%s  where id = %s"
+        sql="update event set title= %s,place=%s, date=%s, fee=%s  where id = %s"
         
-        values = (event.get("title"), event.get("place"), event.get("fee"),id)
+        values = (event.get("title"), event.get("place"),event.get("date"), event.get("fee"),id)
         cursor.execute(sql, values)
         self.connection.commit()
         self.closeAll()
@@ -90,7 +90,7 @@ class my_server:
         print("delete done")
 
     def convertToDictionary(self, resultLine):
-        attkeys=['id','title','place', "fee"]
+        attkeys=['id','title','place',"date", "fee"]
         event = {}
         currentkey = 0
         for attrib in resultLine:

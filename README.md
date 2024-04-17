@@ -1,4 +1,4 @@
-# wsaa_project
+# project-event
 This project was create on the basis of the knowledge acquired at ATU in the course "Web services and applications" , teacher Andrew Beatty.
 
 # Steps:
@@ -11,4 +11,4 @@ This project was create on the basis of the knowledge acquired at ATU in the cou
 7) git add . -> git commit -m "real server" -> git push
 8) in pythonanywhere  create database with tables and data -> set dbconfig.py file with new data -> in bash console - git pull
 9) setting database: pip install mysql.connector -> put new data in bash console (host, user, password, database)
-10) 
+10) lunch app in web browsers 

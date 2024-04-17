@@ -13,6 +13,7 @@ app = Flask(__name__, static_url_path='', static_folder='.')
 def getAll():
     #print("in getall")
     results = eventDAO.getAll()
+    
     return jsonify(results)
 
 #curl "http://127.0.0.1:5000/books/2"

@@ -16,14 +16,14 @@ def getAll():
     
     return jsonify(results)
 
-#curl "http://127.0.0.1:5000/books/2"
+#curl "http://127.0.0.1:5000/event/2"
 @app.route('/event/<int:id>')
 def findById(id):
     foundEvent = eventDAO.findByID(id)
 
     return jsonify(foundEvent)
 
-#curl  -i -H "Content-Type:application/json" -X POST -d "{\"title\":\"hello\",\"author\":\"someone\",\"price\":123}" http://127.0.0.1:5000/books
+#curl  -i -H "Content-Type:application/json" -X POST -d "{\"title\":\"hello\",\"author\":\"someone\",\"price\":123}" http://127.0.0.1:5000/events
 @app.route('/event', methods=['POST'])
 def create():
     
@@ -40,7 +40,7 @@ def create():
     
     return jsonify(addedEvent)
 
-#curl  -i -H "Content-Type:application/json" -X PUT -d "{\"title\":\"hello\",\"author\":\"someone\",\"price\":123}" http://127.0.0.1:5000/books/1
+#curl  -i -H "Content-Type:application/json" -X PUT -d "{\"title\":\"hello\",\"author\":\"someone\",\"price\":123}" http://127.0.0.1:5000/event/1
 @app.route('/event/<int:id>', methods=['PUT'])
 def update(id):
     foundEvent = eventDAO.findByID(id)

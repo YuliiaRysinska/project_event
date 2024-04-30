@@ -2,7 +2,7 @@
 This project created on the basis of the knowledge acquired at ATU in the course "Web services and applications",by teacher Andrew Beatty.
 
 # Description:
-This project demonstrates creatimng a Web application which basise on Flask server, consume a RESTful API, perform CRUD operations on the data, accompanying web interface, using AJAX calls and link to database tables. In this application we can receive, create, change and delete events
+This project demonstrates creating a Web application which based on Flask server by consuming a RESTful API, perform CRUD operations on the data, accompanying web interface, using AJAX calls and link to database tables. In this application we can receive, create, change and delete events
 
 # Steps:
 1) creating repository "wsaa_project" in GitHub

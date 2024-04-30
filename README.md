@@ -1,8 +1,8 @@
 # wsaa_project_event
-This project created on the basis of the knowledge acquired at ATU in the course "Web services and applications", teacher Andrew Beatty.
+This project created on the basis of the knowledge acquired at ATU in the course "Web services and applications",by teacher Andrew Beatty.
 
 # Description:
-This project demonstrate creatimng a Web application in Flask that consume a RESTful API, perform CRUD operations on the data and link to database tables.
+This project demonstrates creatimng a Web application in Flask that consume a RESTful API, perform CRUD operations on the data and link to database tables. In this application we can receive, create, change and delete events
 
 # Steps:
 1) creating repository "wsaa_project" in GitHub
@@ -19,11 +19,16 @@ This project demonstrate creatimng a Web application in Flask that consume a RES
 
 
 # References:
-Andrew Beatty Github: https://github.com/andrewbeattycourseware/wsaa-course-material
-Python Software Foundation. Welcome to python.org: https://www.python.org
-Python: https://realpython.com/
-Resurce with a lot necessary tools: https://www.w3schools.com/
-AMDN: HTML: https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML
-**Python Docs: PEP 8 – Style Guide for Python Code: https://peps.python.org/pep-0008/
+- Andrew Beatty Github: https://github.com/andrewbeattycourseware/wsaa-course-material
+- Python Software Foundation. Welcome to python.org: https://www.python.org
+- Python: https://realpython.com/
+- Resurce with a lot necessary tools: https://www.w3schools.com/
+- HTML: https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML
+- Python Docs: PEP 8 – Style Guide for Python Code: https://peps.python.org/pep-0008/
+- Database Connections:
+https://pynative.com/python-database-connection-pooling-with-mysql/
+https://overiq.com/mysql-connector-python-101/connection-pooling-using-connector-python/
+- 
+
 
 

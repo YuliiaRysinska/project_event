@@ -2,13 +2,13 @@
 This project created on the basis of the knowledge acquired at ATU in the course "Web services and applications",by teacher Andrew Beatty.
 
 # Description:
-This project demonstrates creatimng a Web application in Flask that consume a RESTful API, perform CRUD operations on the data and link to database tables. In this application we can receive, create, change and delete events
+This project demonstrates creatimng a Web application which basise on Flask server, consume a RESTful API, perform CRUD operations on the data, accompanying web interface, using AJAX calls and link to database tables. In this application we can receive, create, change and delete events
 
 # Steps:
 1) creating repository "wsaa_project" in GitHub
 2) cloning "wsaa_project" repository in Visual Studio Code and creating "server.py" file with creating data and functions
 3) setting virtual environment: cmd-> local repository path -> python -m venv venv + .\venv\Scripts\activate.bat -> pip freeze +  pip install flask -> python server.py -> git add. -> git commit -m "simple server" -> git push
-4) creating account in "Pythonanywhere" -> in "Bash console" git clone + HTTPS key -> setting "Open Web Tab"...
+4) creating account in "Pythonanywhere" and hoste application online: -> in "Bash console" git clone + HTTPS key -> setting "Open Web Tab"...
 5) creating "evenDAO.py" file with creating data and functions
 6) creating "event.html" file with creating data and functions
 7) creating "db.config.py" where we customize our database personal data
@@ -28,7 +28,10 @@ This project demonstrates creatimng a Web application in Flask that consume a RE
 - Database Connections:
 https://pynative.com/python-database-connection-pooling-with-mysql/
 https://overiq.com/mysql-connector-python-101/connection-pooling-using-connector-python/
-- 
+
+#  Extra project B:
+https://github.com/YuliiaRysinska/wsaa_proj_weather
+In second project I created app what bases on Flask server wich  interact with an API from site "https://home.openweathermap.org". In this app we can get weather informations from different locations
 
 
 

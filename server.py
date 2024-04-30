@@ -29,7 +29,7 @@ def create():
     
     if not request.json:
         abort(400)
-    # other checking 
+    
     event = {
         "Title": request.json['Title'],
         "Place": request.json['Place'],
@@ -40,7 +40,7 @@ def create():
     
     return jsonify(addedEvent)
 
-#curl  -i -H "Content-Type:application/json" -X PUT -d "{\"title\":\"hello\",\"author\":\"someone\",\"price\":123}" http://127.0.0.1:5000/event/1
+
 @app.route('/event/<int:id>', methods=['PUT'])
 def update(id):
     foundEvent = eventDAO.findByID(id)

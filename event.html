@@ -1,56 +1,154 @@
 <html>
 
-<head>
-    <title>Create event</title>
-       
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <h1>EVENTS</h1>
-    <button>Create an event</button>
+    <head>
+        <title>Create event</title>
 
-</head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <h1>EVENTS</h1>
+    </head>
 
-<body>
+    <body>
+        <div id="createUpdateForm" style="background-color:powderblue;">
+     
+        <table class="table" id="eventTable">
+            <tr>
+                <th>id</th>
+                <th>Title</th>
+                <th>Place</th>
+                <th>Date</th>
+                <th>Fee</th>
+                <th>Update</th>
+                <th>Delete</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>50th Fleadh Nua in Ennis</td>
+                <td>Ennis</td>
+                <td>2024-05-25</td>
+                <td>10</td>
+                <td><button onclick = "update_but()">update</button></td>
+                <td><button onclick = "delete_but()">delete</button></td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Art fest in Galway</td>
+                <td>Galway</td>
+                <td>2024-06-15</td>
+                <td>20</td>
+                <td><button onclick = "update_but()">update</button></td>
+                <td><button onclick = "delete_but()">delete</button></td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Summer fest</td>
+                <td>Dublin</td>
+                <td>2024-07-25</td>
+                <td>50</td>
+                <td><button onclick = "update_but()">update</button></td>
+                <td><button onclick = "delete_but()">delete</button></td>
+            </tr>
 
-    <table class="table" id="bookTable">
-        <tr>
-            <th>id</th>
-            <th>Title</th>
-            <th>Place</th>
-            <th>Date</th>
-            <th>Fee</th>
-            <th>Update</th>
-            <th>Delete</th>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>50th Fleadh Nua in Ennis</td>
-            <td>Ennis</td>
-            <td>2024-05-25</td>
-            <td>50</td>
-            <td><button>update</button></td>
-            <td><button>delete</button></td>
-        </tr>
+        </table>
+        <h2>
+        
+            <span style="color:red;">Create event</span>
+        </h2>
 
-    </table>
-    <h2>
-        <span>Create </span>
-        <span style="display:none">Update this</span> event
-    </h2>
+        <div>
+            id <input type="text" name="id"><br />
+            Title <input type="text" name="Title"><br />
+            Place <input type="text" name="Place"><br />
+            Date <input type="number" name="Date"><br />
+            Fee <input type="number" name="Fee"><br />
+            Just to show select <select name="status">
+                <option value="instock">in stock</option>
+                <option value="outstock">out of stock</option>
+                <option value="other">out of print</option>
+            </select><br />
+        </div>
+            <span><button onclick = "event()"> create event</button></span>
+            <span><button style="display:none">Update</button></span>
+        </div>
+    
+    
+        <script>
+            function getAll(callback){
+                $.ajax({
+                    "url": "http://127.0.0.1:5000/event",
+                    "method":"GET",
+                    "data":"",
+                    "dataType": "JSON",
+                    "success":function(result){
+                        //console.log(result);
+                        callback(result)
+             
+                    },
+                    "error":function(xhr,status,error){
+                        console.log("error: "+status+" msg:"+error);
+                    }
+                });
+    
+            }
+    
+            // testing code
+            function createEvent(event, callback){
+                console.log(JSON.stringify(event));
+                $.ajax({
+                    "url": "http://127.0.0.1:5000/event",
+                    "url": "",
+                    "method":"POST",
+                    "data":JSON.stringify(event),
+                    "dataType": "JSON",
+                    contentType: "application/json; charset=utf-8",
+                    "success":function(result){
+                        //console.log(result);
+                        callback(result)  
+                    },
+                    "error":function(xhr,status,error){
+                        console.log("error: "+status+" msg:"+error);
+                    }
+                });
+    
+            }
+            function updateEvent(event, callback){
+                //console.log(JSON.stringify(book));
+                $.ajax({
+                    "url": "http://127.0.0.1:5000/event"+encodeURI(event.id),
+                    "method":"PUT",
+                    "data":JSON.stringify(event),
+                    "dataType": "JSON",
+                    contentType: "application/json; charset=utf-8",
+                    "success":function(result){
+                        console.log(result);
+                        callback(result)   
+                    },
+                    "error":function(xhr,status,error){
+                        console.log("error: "+status+" msg:"+error);
+                    }
+                });
+            }
+            function deleteEvent(id, callback){
+                $.ajax({
+                    "url": "http://127.0.0.1:5000/event"+id,
+                    "method":"DELETE",
+                    "data":"",
+                    "dataType": "JSON",
+                    contentType: "application/json; charset=utf-8",
+                    "success":function(result){
+                        console.log(result);
+                        callback(result)  
+                    },
+                    "error":function(xhr,status,error){
+                        console.log("error: "+status+" msg:"+error);
+                    }
+                });
+    
+            }
+    
 
-    <div>
-        id <input type="text" name="id"><br />
-        Title <input type="text" name="Title"><br />
-        Place <input type="text" name="Place"><br />
-        Date <input type="number" name="Date"><br />
-        Fee <input type="number" name="Fee"><br />
-        Just to show select <select name="status">
-            <option value="instock">in stock</option>
-            <option value="outstock">out of stock</option>
-            <option value="other">out of print</option>
-        </select><br />
-    </div>
-    <span><button>Create</button></span>
-    <span><button style="display:none">Update</button></span>
-</body>
+        </script>
+
+    </body>
+
 
 </html>

@@ -90,7 +90,7 @@ class eventDAO:
         print("delete done")
 
     def convertToDictionary(self, resultLine):
-        attkeys=['id','Title','Place',"Date", "Fee"]
+        attkeys=["id","Title","Place","Date", "Fee"]
         event = {}
         currentkey = 0
         for attrib in resultLine:

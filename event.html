@@ -2,7 +2,7 @@
 
     <head>
         <title>Create event</title>
-
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <h1>EVENTS</h1>
     </head>
@@ -65,90 +65,229 @@
                 <option value="outstock">out of stock</option>
                 <option value="other">out of print</option>
             </select><br />
+        
+            <span><button id="doCreateButton" onclick="doCreate()">Create</button></span>
+            
         </div>
-            <span><button onclick = "event()"> create event</button></span>
-            <span><button style="display:none">Update</button></span>
-        </div>
-    
-    
+    </body>
+
+   
         <script>
-            function getAll(callback){
+            function showCreate(){
+                document.getElementById('showCreateButton').style.display="none"
+                document.getElementById('eventTable').style.display="none"
+                document.getElementById('createUpdateForm').style.display="block"
+        
+                document.getElementById('createLabel').style.display="inline"
+                document.getElementById('updateLabel').style.display="none"
+        
+                document.getElementById('doCreateButton').style.display="block"
+                document.getElementById('doUpdateButton').style.display="none"
+        
+            }
+            function showViewAll(){
+                document.getElementById('showCreateButton').style.display="block"
+                document.getElementById('eventTable').style.display="block"
+                document.getElementById('createUpdateForm').style.display="none"
+            }
+            function showUpdate(buttonElement){
+                document.getElementById('showCreateButton').style.display="none"
+                document.getElementById('eventTable').style.display="none"
+                document.getElementById('createUpdateForm').style.display="block"
+        
+                document.getElementById('createLabel').style.display="none"
+                document.getElementById('updateLabel').style.display="inline"
+        
+                document.getElementById('doCreateButton').style.display="none"
+                document.getElementById('doUpdateButton').style.display="block"
+        
+        
+                var rowElement = buttonElement.parentNode.parentNode
+                // these is a way of finding the closest <tr> which would safer, closest()
+                
+                var event = getEventFromRow(rowElement)
+                populateFormWithEvent(event)
+            }
+            function doCreate(){
+                var form = document.getElementById('createUpdateForm')
+        
+                var event = {}
+               
+                event.Title = form.querySelector('input[name="Title"]').value
+                event.Place = form.querySelector('input[name="Place"]').value
+                event.Date= form.querySelector('input[name="Date"]').value
+                event.Fee= form.querySelector('input[name="Fee"]').value
+                console.log(JSON.stringify(event))
+                createEventAjax(event)
+                
+                
+            }
+            function doUpdate(){
+                var event = getEventFromForm();
+                var rowElement = document.getElementById(event.id);
+                updateEventAjax(event);
+                setEventInRow(rowElement,event);
+               
+                clearForm();
+                showViewAll();
+            }
+            function doDelete(r){
+                var tableElement = document.getElementById('eventTable');
+                var rowElement = r.parentNode.parentNode;
+                var index = rowElement.rowIndex;
+                deleteEventAjax(rowElement.getAttribute("id"));
+                tableElement.deleteRow(index);
+            }
+            function addEventToTable(event){
+                var tableElement = document.getElementById('eventTable')
+                var rowElement = tableElement.insertRow(-1)
+                rowElement.setAttribute('id',event.id)
+                var cell1 = rowElement.insertCell(0);
+                cell1.innerHTML = event.id
+                var cell2 = rowElement.insertCell(1);
+                cell2.innerHTML = event.Title
+                var cell3 = rowElement.insertCell(2);
+                cell3.innerHTML = event.Place
+                var cell4 = rowElement.insertCell(3);
+                cell4.innerHTML = event.Date
+                var cell5 = rowElement.insertCell(4);
+                cell5.innerHTML = event.Date
+                var cell6 = rowElement.insertCell(5);
+                cell6.innerHTML = '<button onclick="showUpdate(this)">Update</button>'
+                var cell7 = rowElement.insertCell(6);
+                cell7.innerHTML = '<button onclick=doDelete(this)>delete</button>'
+        
+            }
+        
+            function clearForm(){
+                var form = document.getElementById('createUpdateForm')
+        
+                form.querySelector('input[name="Title"]').value=''
+                form.querySelector('input[name="Place"]').value=''
+                form.querySelector('input[name="Date"]').value=''
+                form.querySelector('input[name="Fee"]').value=''
+            }
+            function getEventFromRow(rowElement){
+                var car ={}
+                event.id  = rowElement.getAttribute('id')
+                event.Title = rowElement.cells[1].firstChild.textContent
+                event.Place = rowElement.cells[2].firstChild.textContent
+                event.Date = rowElement.cells[3].firstChild.textContent
+                event.Fee = parseInt(rowElement.cells[4].firstChild.textContent,10)
+                return event
+            }
+            function setEventInRow(rowElement, event){
+                rowElement.cells[0].firstChild.textContent= event.id  
+                rowElement.cells[1].firstChild.textContent= event.Title 
+                rowElement.cells[2].firstChild.textContent= event.Place
+                rowElement.cells[3].firstChild.textContent= event.Date
+                rowElement.cells[4].firstChild.textContent= event.Fee
+            }
+            function populateFormWithEvent(event){
+                var form = document.getElementById('createUpdateForm')
+                form.querySelector('input[name="id"]').disabled = true
+        
+                form.querySelector('input[name="id"]').value  = event.id
+                form.querySelector('input[name="Title"]').value= event.Title
+                form.querySelector('input[name="Place"]').value= event.Place
+                form.querySelector('input[name="Date"]').value= event.Date
+                form.querySelector('input[name="Fee"]').value= event.Fee
+                return event
+            }
+            function getEventFromForm(){
+                var form = document.getElementById('createUpdateForm')
+                var event = {}
+                event.id = form.querySelector('input[name="id"]').value
+                event.Title = form.querySelector('input[name="Title"]').value
+                event.Place = form.querySelector('input[name="Place"]').value
+                event.Date = form.querySelector('input[name="Date"]').value
+                event.Fee = parseInt(form.querySelector('input[name="Fee"]').value,10)
+                console.log(JSON.stringify(event))
+                return event
+            }
+            function getAllAjax(){
                 $.ajax({
-                    "url": "http://127.0.0.1:5000/event",
+                    "url": "/event",
                     "method":"GET",
                     "data":"",
                     "dataType": "JSON",
                     "success":function(result){
                         //console.log(result);
-                        callback(result)
-             
+                        for (event of result){
+                            addEventToTable(event);
+                        }
+                        
                     },
                     "error":function(xhr,status,error){
                         console.log("error: "+status+" msg:"+error);
                     }
                 });
-    
+        
             }
-    
-            // testing code
-            function createEvent(event, callback){
+            function createEventAjax(event){
+                
                 console.log(JSON.stringify(event));
                 $.ajax({
-                    "url": "http://127.0.0.1:5000/event",
-                    "url": "",
+                    "url": "/event",
                     "method":"POST",
                     "data":JSON.stringify(event),
                     "dataType": "JSON",
                     contentType: "application/json; charset=utf-8",
                     "success":function(result){
                         //console.log(result);
-                        callback(result)  
+                        event.id = result.id
+                        addEventToTable(event)
+                        clearForm()
+                        showViewAll()
                     },
                     "error":function(xhr,status,error){
                         console.log("error: "+status+" msg:"+error);
                     }
                 });
-    
+
             }
-            function updateEvent(event, callback){
-                //console.log(JSON.stringify(book));
+            function updateEventAjax(event){
+                
+                console.log(JSON.stringify(event));
                 $.ajax({
-                    "url": "http://127.0.0.1:5000/event"+encodeURI(event.id),
+                    "url": "/event/"+encodeURI(event.id),
                     "method":"PUT",
                     "data":JSON.stringify(event),
                     "dataType": "JSON",
                     contentType: "application/json; charset=utf-8",
                     "success":function(result){
-                        console.log(result);
-                        callback(result)   
+                       // console.log(result);
+                          
                     },
                     "error":function(xhr,status,error){
                         console.log("error: "+status+" msg:"+error);
                     }
                 });
             }
-            function deleteEvent(id, callback){
+            function deleteEventAjax(id){
+                
+                //console.log(JSON.stringify('deleting '+id));
                 $.ajax({
-                    "url": "http://127.0.0.1:5000/event"+id,
+                    "url": "/event/"+encodeURI(id),
                     "method":"DELETE",
                     "data":"",
                     "dataType": "JSON",
                     contentType: "application/json; charset=utf-8",
                     "success":function(result){
-                        console.log(result);
-                        callback(result)  
+                        //console.log(result);
+                          
                     },
                     "error":function(xhr,status,error){
                         console.log("error: "+status+" msg:"+error);
                     }
                 });
-    
-            }
-    
 
+            }
+            getAllAjax();
+            
         </script>
 
-    </body>
+
 
 
 </html>
